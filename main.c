@@ -131,11 +131,10 @@ int main() {
         while(!WindowShouldClose()) {
             UpdateDrawFrame();
         }
-        // unload
-        UnloadRenderTexture(target);
-        CloseWindow();
     #endif
-
+    // unload
+    UnloadRenderTexture(target);
+    CloseWindow();
     return 0;
 }
 
@@ -294,10 +293,9 @@ void draw_hiscore(int score) {
 Vector2 fruit_spawn() {
     Vector2 fruit = {GetRandomValue(1,board.grid_row)*board.grid_step,GetRandomValue(2,board.grid_col)*board.grid_step};
     for (int i=0; i<snake.size; i++) {
-        if (fruit.x != snake.arr[i].x && fruit.y != snake.arr[i].y) {
-                continue;
-            } else {
+        while (fruit.x == snake.arr[i].x && fruit.y == snake.arr[i].y) {
             fruit = (Vector2){GetRandomValue(1,board.grid_row)*board.grid_step,GetRandomValue(2,board.grid_col)*board.grid_step};
+            i=0;
         }
     }
     return fruit;
